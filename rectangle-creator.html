@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groundbreaking new rectangle/square drawing app.</title>
+  <style>
+    p {
+      color: black;
+      margin: 0.5em 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    canvas {
+      border: 2px solid black;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      gap: 50px;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      gap: 50px;
+      margin-top: 20px;
+    }
+
+    .instructions {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+
+    <h1> Groundbreaking new rectangle/square drawing app. </h1>
+
+    <canvas width="480" height="320">
+
+    </canvas>
+    <div class="instructions">
+      <p>Please take this app seriously.</p>
+      <p>All inputs must be numbers between 0 and 300.<span class="text"></span></p>
+    </div>
+    <div class="container">
+      <div class="input-container">
+        <label> X </label>
+        <input class="x" type="text">
+      </div>
+      <div class="input-container">
+        <label> Y </label>
+        <input class="y" type="text">
+      </div>
+      <div class="input-container">
+        <label> Width </label>
+        <input class="width" type="text">
+      </div>
+      <div class="input-container">
+        <label> Height </label>
+        <input class="height" type="text">
+      </div>
+      <div class="input-container">
+        <label> Color </label>
+        <input class="color" type="color">
+      </div>
+
+    </div>
+    <div class="button-container">
+      <button class="button1">Submit</button>
+      <button class="button2">Clear</button>
+      <button class="button3">Random!</button>
+    </div>
+  </div>
+
+</body>
+<script>
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const button1 = document.querySelector('.button1');
+  const button2 = document.querySelector('.button2');
+  const button3 = document.querySelector('.button3');
+  const text = document.querySelector('.text');
+
+
+  button1.addEventListener("click", () => {
+    x = Number(document.querySelector('.x').value);
+    y = Number(document.querySelector('.y').value);
+    width = Number(document.querySelector('.width').value);
+    height = Number(document.querySelector('.height').value);
+    color = document.querySelector('.color').value;
+    if (x > 300 || x < 0 || isNaN(x)) {
+      text.textContent = " damn.";
+    } else if (y > 300 || y < 0 || isNaN(y)) {
+      text.textContent = " oh dear.";
+    } else if (width > 300 || width < 0 || isNaN(width)) {
+      text.textContent = " wow.";
+    } else if (height > 300 || height < 0 || isNaN(height)) {
+      text.textContent = " very funny.";
+    } else {
+      ctx.strokeStyle = color;
+      ctx.strokeRect(x, y, width, height);
+    }
+  });
+
+  button2.addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    text.textContent = "";
+  });
+
+  button3.addEventListener("click", () => {
+    x = Math.random() * 380;
+    y = Math.random() * 220;
+    width = Math.random() * 380;
+    height = Math.random() * 220;
+    color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+    ctx.strokeStyle = color;
+    ctx.strokeRect(x, y, width, height);
+
+  });
+
+  const section = document.querySelector('section');
+</script>
+
+</html>
